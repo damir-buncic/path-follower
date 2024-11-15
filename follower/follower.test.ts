@@ -71,3 +71,9 @@ test("it should follow map 12", () => {
     followPath("map-12");
   }).toThrow("Fork in a path");
 });
+
+test("it should follow map 13", () => {
+  expect(() => {
+    followPath("map-13");
+  }).toThrow("Next character not found");
+});
