@@ -1,5 +1,5 @@
 import { Direction } from "../enums";
-import { CharacterMap, Position } from "../types";
+import { CharacterMap, Position, CharacterData } from "../types";
 import {
   getBottomCharacterData,
   getCharacterInDirection,
@@ -10,19 +10,24 @@ import {
 } from "../utils";
 
 export function followStartCharacter(map: CharacterMap, position: Position) {
+  const nextAvailableCharacters: CharacterData[] = [];
+  
   let nextCharacterData = getLeftCharacterData(map, position);
-  if (nextCharacterData) return nextCharacterData;
+  if (nextCharacterData) nextAvailableCharacters.push(nextCharacterData);
 
   nextCharacterData = getTopCharacterData(map, position);
-  if (nextCharacterData) return nextCharacterData;
+  if (nextCharacterData) nextAvailableCharacters.push(nextCharacterData);
 
   nextCharacterData = getRightCharacterData(map, position);
-  if (nextCharacterData) return nextCharacterData;
+  if (nextCharacterData) nextAvailableCharacters.push(nextCharacterData);
 
   nextCharacterData = getBottomCharacterData(map, position);
-  if (nextCharacterData) return nextCharacterData;
+  if (nextCharacterData) nextAvailableCharacters.push(nextCharacterData);
 
-  throw new Error("Next character not found");
+  if (nextAvailableCharacters.length === 0) throw new Error("Next character not found");
+  if (nextAvailableCharacters.length > 1) throw new Error("Multiple starting paths");
+
+  return nextAvailableCharacters[0];
 }
 
 export function followHorizontalConnectionCharacter(map: CharacterMap, position: Position, direction: Direction) {
