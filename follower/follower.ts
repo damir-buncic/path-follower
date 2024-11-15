@@ -1,6 +1,7 @@
 import { Direction } from "../enums";
 import { loadMap } from "../map-loader";
 import { CharacterMap, Position, Result, CharacterData } from "../types";
+import { validateMap, ValidationError } from "../validation";
 import {
   followHorizontalConnectionCharacter,
   followIntersectionCharacter,
@@ -13,6 +14,12 @@ const START = "@";
 
 export function followPath(mapName: string): Result {
   const map = loadMap(mapName);
+
+  const validationResult = validateMap(map);
+  if (!validationResult.valid) {
+    throw new ValidationError(validationResult.reason);
+  }
+
   let position = findStartPosition(map);
 
   let steps: CharacterData[] = [

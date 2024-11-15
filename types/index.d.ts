@@ -17,3 +17,7 @@ export type CharacterData = {
   position: Position;
   direction: Direction;
 };
+
+export type SuccessValidationResult = { valid: true };
+export type ErrorValidationResult = { valid: false; reason: string };
+export type ValidationResult = SuccessValidationResult | ErrorValidationResult;
