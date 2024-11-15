@@ -30,7 +30,7 @@ export function followPath(mapName: string): Result {
     const currentCharacter = steps[steps.length - 1];
     const nextCharacter = findNextCharacter(map, currentCharacter);
 
-    if (isUppercaseLetter(nextCharacter.character)) {
+    if (isUppercaseLetter(nextCharacter.character) && !isAlreadyVisited(steps, nextCharacter.position)) {
       letters.push(nextCharacter.character);
     }
 
@@ -100,4 +100,8 @@ function isVerticalConnectionCharacter(character: string) {
 
 function isEndCharacter(character: string) {
   return character === "x";
+}
+
+function isAlreadyVisited(steps: CharacterData[], position: Position) {
+  return steps.some((s) => s.position.row === position.row && s.position.column === position.column);
 }
