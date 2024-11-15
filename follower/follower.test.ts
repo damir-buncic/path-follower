@@ -29,3 +29,9 @@ test("it should follow map 5", () => {
   expect(result.letters).toBe("BLAH")
   expect(result.path).toBe("@B+++B|+-L-+A+++A-+Hx")
 });
+
+test("it should follow map 6", () => {
+  const result = followPath("map-6");
+  expect(result.letters).toBe("AB")
+  expect(result.path).toBe("@-A--+|+-B--x")
+});
