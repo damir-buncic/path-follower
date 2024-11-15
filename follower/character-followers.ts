@@ -35,13 +35,25 @@ export function followUppercaseLetterCharacter(map: CharacterMap, position: Posi
   let nextCharacterData = getCharacterInDirection(map, position, direction);
   if (nextCharacterData) return nextCharacterData;
 
-  throw new Error("Next character not found");
+  return getCharacterOnTurn(map, position, direction);
 }
 
 export function followIntersectionCharacter(map: CharacterMap, position: Position, direction: Direction) {
-  let nextDirection = getNextDirection(direction);
+  return getCharacterOnTurn(map, position, direction);
+}
 
+export function followVerticalConnectionCharacter(map: CharacterMap, position: Position, direction: Direction) {
+  if (direction === Direction.UP || direction == Direction.DOWN) {
+    let nextCharacterData = getCharacterInDirection(map, position, direction);
+    if (nextCharacterData) return nextCharacterData;
+    throw new Error("Next character not found");
+  }
+  throw new Error("Invalid direction");
+}
+
+function getCharacterOnTurn(map, position, direction) {
   // first turn (90deg or right turn)
+  let nextDirection = getNextDirection(direction);
   let nextCharacterData = getCharacterInDirection(map, position, nextDirection);
   if (nextCharacterData) return nextCharacterData;
 
@@ -54,13 +66,4 @@ export function followIntersectionCharacter(map: CharacterMap, position: Positio
   if (nextCharacterData) return nextCharacterData;
 
   throw new Error("Next character not found");
-}
-
-export function followVerticalConnectionCharacter(map: CharacterMap, position: Position, direction: Direction) {
-  if (direction === Direction.UP || direction == Direction.DOWN) {
-    let nextCharacterData = getCharacterInDirection(map, position, direction);
-    if (nextCharacterData) return nextCharacterData;
-    throw new Error("Next character not found");
-  }
-  throw new Error("Invalid direction");
 }

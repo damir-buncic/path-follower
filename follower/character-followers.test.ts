@@ -73,9 +73,23 @@ describe("Follow uppercase letter", () => {
     expect(result).toEqual({ character: "L", position: { row: 1, column: 0 }, direction: Direction.LEFT });
   });
 
+  test("should make a left turn", () => {
+    const result = followUppercaseLetterCharacter(["  ", " A ", " B "], { row: 1, column: 1 }, Direction.LEFT);
+    expect(result).toEqual({ character: "B", position: { row: 2, column: 1 }, direction: Direction.DOWN });
+  });
+
+  test("should make a right turn", () => {
+    const result = followUppercaseLetterCharacter([" B ", " A ", "   "], { row: 1, column: 1 }, Direction.LEFT);
+    expect(result).toEqual({ character: "B", position: { row: 0, column: 1 }, direction: Direction.UP });
+  });
+
   test("should throw if next character is not found", () => {
     expect(() => {
       followUppercaseLetterCharacter(["   ", " A ", "   "], { row: 1, column: 1 }, Direction.LEFT);
+    }).toThrow("Next character not found");
+
+    expect(() => {
+      followUppercaseLetterCharacter(["   ", " AB", "   "], { row: 1, column: 1 }, Direction.LEFT);
     }).toThrow("Next character not found");
   });
 });
