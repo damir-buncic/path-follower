@@ -26,12 +26,9 @@ export function followStartCharacter(map: CharacterMap, position: Position) {
 }
 
 export function followHorizontalConnectionCharacter(map: CharacterMap, position: Position, direction: Direction) {
-  if (direction === Direction.LEFT || direction == Direction.RIGHT) {
-    let nextCharacterData = getCharacterInDirection(map, position, direction);
-    if (nextCharacterData) return nextCharacterData;
-    throw new Error("Next character not found");
-  }
-  throw new Error("Invalid direction");
+  let nextCharacterData = getCharacterInDirection(map, position, direction);
+  if (nextCharacterData) return nextCharacterData;
+  throw new Error("Next character not found");
 }
 
 export function followUppercaseLetterCharacter(map: CharacterMap, position: Position, direction: Direction) {

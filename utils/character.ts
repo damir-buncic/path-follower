@@ -4,7 +4,7 @@ import { CharacterMap, Position, CharacterData } from "../types";
 export function getLeftCharacterData(map: CharacterMap, position: Position): CharacterData | null {
   if (position.column > 0) {
     const character = map[position.row][position.column - 1];
-    if (!character.trim()) return null;
+    if (!character?.trim()) return null;
 
     return {
       character,
@@ -18,7 +18,7 @@ export function getLeftCharacterData(map: CharacterMap, position: Position): Cha
 export function getRightCharacterData(map: CharacterMap, position: Position): CharacterData | null {
   if (position.column < map[position.row].length - 1) {
     const character = map[position.row][position.column + 1];
-    if (!character.trim()) return null;
+    if (!character?.trim()) return null;
 
     return {
       character,
@@ -32,7 +32,7 @@ export function getRightCharacterData(map: CharacterMap, position: Position): Ch
 export function getTopCharacterData(map: CharacterMap, position: Position): CharacterData | null {
   if (position.row > 0) {
     const character = map[position.row - 1][position.column];
-    if (!character.trim()) return null;
+    if (!character?.trim()) return null;
 
     return {
       character,
@@ -46,7 +46,7 @@ export function getTopCharacterData(map: CharacterMap, position: Position): Char
 export function getBottomCharacterData(map: CharacterMap, position: Position): CharacterData | null {
   if (position.row < map.length - 1) {
     const character = map[position.row + 1][position.column];
-    if (!character.trim()) return null;
+    if (!character?.trim()) return null;
 
     return {
       character,

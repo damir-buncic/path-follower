@@ -46,6 +46,16 @@ describe("Follow horizontal connection", () => {
     expect(result).toEqual({ character: "R", position: { row: 1, column: 2}, direction: Direction.RIGHT });
   });
 
+  test("should find next above (retain direction on intersection)", () => {
+    const result = followHorizontalConnectionCharacter([" T ", " - ", "  "], { row: 1, column: 1 }, Direction.UP);
+    expect(result).toEqual({ character: "T", position: { row: 0, column: 1}, direction: Direction.UP });
+  });
+
+  test("should find next below (retain direction on intersection)", () => {
+    const result = followHorizontalConnectionCharacter(["  ", " - ", " B "], { row: 1, column: 1 }, Direction.DOWN);
+    expect(result).toEqual({ character: "B", position: { row: 2, column: 1}, direction: Direction.DOWN });
+  });
+
   test("should throw if next character is not found", () => {
     expect(() => {
       followHorizontalConnectionCharacter(["   ", " - ", "   "], { row: 1, column: 1 }, Direction.LEFT);
@@ -54,16 +64,6 @@ describe("Follow horizontal connection", () => {
     expect(() => {
       followHorizontalConnectionCharacter(["   ", " - ", "   "], { row: 1, column: 1 }, Direction.RIGHT);
     }).toThrow("Next character not found");
-  });
-
-  test("should throw if invalid direction", () => {
-    expect(() => {
-      followHorizontalConnectionCharacter(["   ", " - ", "   "], { row: 1, column: 1 }, Direction.UP);
-    }).toThrow("Invalid direction");
-
-    expect(() => {
-      followHorizontalConnectionCharacter(["   ", " - ", "   "], { row: 1, column: 1 }, Direction.DOWN);
-    }).toThrow("Invalid direction");
   });
 });
 
