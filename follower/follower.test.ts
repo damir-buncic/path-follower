@@ -83,3 +83,9 @@ test("it should follow map 14", () => {
     followPath("map-14");
   }).toThrow("Multiple starting paths");
 });
+
+test("it should follow map 15", () => {
+  expect(() => {
+    followPath("map-15");
+  }).toThrow("Next character not found");
+});
