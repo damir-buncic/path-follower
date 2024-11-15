@@ -65,3 +65,9 @@ test("it should follow map 11", () => {
     followPath("map-11");
   }).toThrow("Multiple start characters");
 });
+
+test("it should follow map 12", () => {
+  expect(() => {
+    followPath("map-12");
+  }).toThrow("Fork in a path");
+});

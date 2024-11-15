@@ -92,6 +92,12 @@ describe("Follow uppercase letter", () => {
       followUppercaseLetterCharacter(["   ", " AB", "   "], { row: 1, column: 1 }, Direction.LEFT);
     }).toThrow("Next character not found");
   });
+
+  test("should throw if fork in a path", () => {
+    expect(() => {
+      followIntersectionCharacter([" T ", " A ", " B "], { row: 1, column: 1 }, Direction.RIGHT);
+    }).toThrow("Fork in a path");
+  });
 });
 
 describe("Follow intersection character", () => {
@@ -103,6 +109,12 @@ describe("Follow intersection character", () => {
   test("should turn left", () => {
     const result = followIntersectionCharacter(["   ", "L+R", " B "], { row: 1, column: 1 }, Direction.RIGHT);
     expect(result).toEqual({ character: "B", position: { row: 2, column: 1 }, direction: Direction.DOWN });
+  });
+
+  test("should throw if fork in a path", () => {
+    expect(() => {
+      followIntersectionCharacter([" T ", " + ", " B "], { row: 1, column: 1 }, Direction.RIGHT);
+    }).toThrow("Fork in a path");
   });
 
   test("should throw if no turn available right", () => {

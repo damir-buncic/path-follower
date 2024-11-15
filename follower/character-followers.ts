@@ -54,16 +54,21 @@ export function followVerticalConnectionCharacter(map: CharacterMap, position: P
 function getCharacterOnTurn(map, position, direction) {
   // first turn (90deg or right turn)
   let nextDirection = getNextDirection(direction);
-  let nextCharacterData = getCharacterInDirection(map, position, nextDirection);
-  if (nextCharacterData) return nextCharacterData;
+  let firstTurnCharacterData = getCharacterInDirection(map, position, nextDirection);
 
   // second turn (180deg - direction from which we arrived, skip)
   nextDirection = getNextDirection(nextDirection);
   // third turn (-90deg or left turn)
   nextDirection = getNextDirection(nextDirection);
 
-  nextCharacterData = getCharacterInDirection(map, position, nextDirection);
-  if (nextCharacterData) return nextCharacterData;
+  let secondTurnCharacterData = getCharacterInDirection(map, position, nextDirection);
+  
+  if(firstTurnCharacterData && secondTurnCharacterData) {
+    throw new Error("Fork in a path");
+  }
+
+  if(firstTurnCharacterData) return firstTurnCharacterData;
+  if(secondTurnCharacterData) return secondTurnCharacterData;
 
   throw new Error("Next character not found");
 }
